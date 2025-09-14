@@ -17,11 +17,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', async (req, res) => {
     try {
-        const [userInfo, featureRepos, stats] = await Promise.all([
-            githubService.getUserInfo(),
-            githubService.getFeatureRepositories(6),
-            githubService.getStats(),
-        ]);
+        // GitHub API'ye bağlanmayı dene, yoksa varsayılan değerler kullan
+        let userInfo = null;
+        let featureRepos = [];
+        let stats = null;
+        
+        try {
+            [userInfo, featureRepos, stats] = await Promise.all([
+                githubService.getUserInfo(),
+                githubService.getFeatureRepositories(6),
+                githubService.getStats(),
+            ]);
+        } catch (githubError) {
+            console.warn('GitHub API hatası, varsayılan değerler kullanılıyor:', githubError.message);
+            // Varsayılan değerler
+            userInfo = {
+                name: personal.fullName,
+                bio: personal.title,
+                avatar_url: personal.profileImage,
+                location: personal.location
+            };
+            featureRepos = [];
+            stats = { totalRepos: 0, totalStars: 0, totalForks: 0 };
+        }
+        
         res.render('index', {
             title: personal.fullName + ' | ' + personal.title,
             data,
@@ -136,6 +155,12 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+// Vercel için export
+module.exports = app;
+
+// Lokal development için
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server is running on http://localhost:${PORT}`);
+    });
+}

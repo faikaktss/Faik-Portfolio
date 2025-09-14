@@ -160,7 +160,9 @@ vercel --prod
 4. Push edin (`git push origin feature/amazing-feature`)
 5. Pull Request açın
 
+## 📄 Lisans
 
+Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
 
 ## 👨‍💻 Geliştirici
 
@@ -172,6 +174,7 @@ vercel --prod
 
 ## 🙏 Teşekkürler
 
+Bu projeyi beğendiyseniz ⭐ vermeyi unutmayın!
 
 ---
 

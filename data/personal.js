@@ -23,7 +23,7 @@ module.exports = {
         //TODO Profil fotoğrafı eklemeyi unutma
 
         hero: {
-            greeting:"Merhaba, ben",
+            greeting:"Merhaba ben",
             highlightName:"FAİK AKTAŞ",
             title:"Backend Developer",
             description:["Kendini sürekli geliştirmeyi hedefleyen, yenilikçi çözümler üreten bir backend geliştiriciyim. Modern teknolojilerle ölçeklenebilir ve güvenilir sistemler kurarak, kullanıcı deneyimini en üst seviyeye çıkarmayı amaçlıyorum.",
