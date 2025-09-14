@@ -1,0 +1,103 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main class="projects-page">
+    <div class="container">
+        <!-- Page Header -->
+        <section class="page-header">
+            <p></p>
+            <p></p>
+            <h1>Başlıca Projelerim</h1>
+        </section>
+
+
+        <!-- Projects Grid -->
+        <section class="projects-grid">
+            <% if (github.repos && github.repos.length > 0) { %>
+                <% github.repos.forEach(project => { %>
+                    <article class="project-card">
+                        <div class="project-header">
+                            <h3><%= project.name %></h3>
+                            <div class="project-stats">
+                                <span class="stars">⭐ <%= project.stargazersCount %></span>
+                                <span class="forks">🍴 <%= project.forksCount %></span>
+                            </div>
+                        </div>
+
+                        <p class="project-description">
+                            <%= project.description %>
+                        </p>
+
+                        <div class="project-tech">
+                            <% project.techStack.forEach(tech => { %>
+                                <span class="tech-tag"><%= tech %></span>
+                            <% }) %>
+                        </div>
+
+                        <div class="project-meta">
+                            <span class="category"><%= project.category %></span>
+                            <span class="language"><%= project.language || 'N/A' %></span>
+                        </div>
+
+                        <div class="project-actions">
+                            <a href="<%= project.htmlUrl %>" target="_blank" class="btn btn-outline">
+                                GitHub'da Gör
+                            </a>
+                            <% if (project.homepageUrl) { %>
+                                <a href="<%= project.homepageUrl %>" target="_blank" class="btn btn-primary">
+                                    Demo
+                                </a>
+                            <% } %>
+                        </div>
+
+                        <div class="project-dates">
+                            <small>Son güncelleme: <%= new Date(project.updatedAt).toLocaleDateString('tr-TR') %></small>
+                        </div>
+                    </article>
+                <% }) %>
+            <% } else { %>
+                <div class="no-projects">
+                    <h3>Henüz proje bulunamadı</h3>
+                    <p>GitHub verileriniz yüklenirken lütfen bekleyin veya sayfayı yenileyin.</p>
+                    <a href="/api/refresh-github" class="btn btn-primary">Verileri Yenile</a>
+                </div>
+            <% } %>
+        </section>
+
+        <!-- Stats -->
+        <% if (github.stats && Object.keys(github.stats).length > 0) { %>
+            <section class="github-stats">
+                <h2>GitHub İstatistikleri</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number"><%= github.stats.totalRepos || 0 %></span>
+                        <span class="stat-label">Toplam Repo</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number"><%= github.stats.totalStars || 0 %></span>
+                        <span class="stat-label">Toplam Star</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number"><%= github.stats.totalForks || 0 %></span>
+                        <span class="stat-label">Toplam Fork</span>
+                    </div>
+                </div>
+            </section>
+        <% } %>
+    </div>
+</main>
+
+<script>
+function filterProjects() {
+    const category = document.getElementById('category-filter').value;
+    const tech = document.getElementById('tech-filter').value;
+    
+    const url = new URL(window.location);
+    url.searchParams.set('category', category);
+    url.searchParams.set('tech', tech);
+    
+    window.location.href = url.toString();
+}
+</script>
+
+<%- include('partials/footer') %>

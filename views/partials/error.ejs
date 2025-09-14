@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hata Faik Aktaş</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 50px;
+        text-align: center;
+      }
+      .error-container {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .error-code {
+        font-size: 72px;
+        color: #e74c3c;
+        margin: 20px 0;
+      }
+      .error-message {
+        font-size: 24px;
+        margin: 20px 0;
+      }
+      .error-details {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: left;
+      }
+      .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: #3498db;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+    <body>
+        <div class="error-container">
+            <div class="error-code">X</div>
+            <h1 class="error-message"><%= message %></h1>
+            <% if (error){%>
+                <div class="error-details">
+                    <strong> Hata: </strong> <%=error%>
+                </div>
+            <% } %>
+                <a href="/" class="back-link">Ana Sayfaya Dön</a>
+        </div>
+    </body>
+</html>

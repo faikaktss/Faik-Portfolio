@@ -1,0 +1,243 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+
+<!-- Ana Kısım -->
+<main class="main-content">
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <%= data.hero.greeting %>, <span class="highlight"><%= data.hero.highlightName %></span>
+                </h1>
+                <p class="hero-subtitle"><%= data.hero.title %></p>
+                <div class="hero-description">
+                    <% data.hero.description.forEach(paragraph => { %>
+                        <p><%= paragraph %></p>
+                    <% }); %>
+                </div>
+                
+                <div class="hero-actions">
+                    <a href="#skills" class="btn btn-primary">Yeteneklerime Bak</a>
+                    <a href="#contact" class="btn btn-secondary">İletişime Geç</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!--Hakkımda Kısmı-->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <h2 class="section-title"><%=data.about.title%></h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <% data.about.paragraphs.forEach(paragraph => { %>
+                        <p><%= paragraph %></p>
+                    <% }); %>
+
+                    <!--Eğitim bilgisi-->
+                     <% if (data.about.education && data.about.education.length > 0) { %>
+                        <div class="education-info">
+                            <h4>Eğitim</h4>
+                            <% data.about.education.forEach(edu => { %>
+                                <div class="education-item">
+                                    <strong><%= edu.degree %></strong> - <%= edu.school %> (<%= edu.year %>)
+                                    <% if (edu.gpa) { %>
+                                        <span class="gpa">GPA: <%= edu.gpa %></span>
+                                    <% } %>
+                                </div>
+                            <% }); %>
+                        </div>
+                    <% } %>
+
+                    <!--Sertifikalar kısmı-->
+                        <% if(data.about.certifications && data.about.certifications.length > 0) { %>
+                            <div class="certifications">
+                                <h4>Sertifikalar</h4>
+                                <ul class="cert-list">
+                                    <% data.about.certifications.forEach(cert => { %>
+                                        <li><%= cert %></li>
+                                    <% }); %>
+                                </ul>
+                            </div>
+                        <% } %>
+                </div>
+
+
+                <div class="about-image">
+                    <% if (personal.profileImage) { %>
+                        <img src="<%= personal.profileImage %>" alt="<%= personal.fullName %>" class="profile-img">
+                    <% } else { %>
+                        <div class="image-placeholder">
+                            <span>Profil Fotoğrafı</span>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Yetenekler Kısmı -->
+    <section id="skills" class="section skills-section">    
+        <h2 class="section-title">Yeteneklerim</h2>
+        <div class="skills-grid">
+            <!-- Backend Yetenekleri-->
+            <div class="skill-category">
+                <h3 class="skill-category-title">Backend</h3>
+                    <div class="skills-list">
+                        <% data.skills.backend.forEach(skill => { %>
+                            <div class="skill-item" data-level="<%= skill.level %>">
+                                <span class="skill-name"><%= skill.name %></span>
+                            </div>
+                        <% }); %>
+                    </div>
+            </div>
+
+
+            <!-- Veri tabanı yetenekleri -->
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Veritabanı</h3>
+                    <div class="skills-list">
+                        <% data.skills.database.forEach(skill => { %>
+                            <div class="skill-item" data-level="<%= skill.level %>">
+                                <span class="skill-name"><%= skill.name %></span>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+
+                <!-- Araçlar -->
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Araçlar</h3>
+                    <div class="skills-list">
+                        <% data.skills.tools.forEach(skill => { %>
+                            <div class="skill-item" data-level="<%= skill.level %>">
+                                <span class="skill-name"><%= skill.name %></span>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+
+
+                 <!-- Frontend -->
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Frontend</h3>
+                    <div class="skills-list">
+                        <% data.skills.frontend.forEach(skill => { %>
+                            <div class="skill-item" data-level="<%= skill.level %>">  
+                                <span class="skill-name"><%= skill.name %></span>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+        </div>
+    </section>   
+
+
+    <!-- İş deneyimi -->
+    <% if (data.experience && data.experience.length > 0) { %>
+        <section id="experience" class="section experience-section">
+            <div class="container">
+                <h2 class="section-title">İş Deneyimi</h2>
+                <div class="experience-timeline">
+                    <% data.experience.forEach(job => { %>
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <h3 class="job-title"><%= job.position %></h3>
+                                <div class="company-info">
+                                    <span class="company"><%= job.company %></span>
+                                    <span class="period"><%= job.period %></span>
+                                    <span class="location"><%= job.location %></span>
+                                </div>
+                            </div>
+                            <ul class="job-description">
+                                <% job.description.forEach(task => { %>
+                                    <li><%= task %></li>
+                                <% }); %>
+                            </ul>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </section>
+    <% } %>
+    
+
+    <!-- İletişim Bölümü-->
+        <section id="contact" class="section contact-preview">
+        <div class="container">
+            <h2 class="section-title">İletişime Geç</h2>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <!-- Email -->
+                    <div class="contact-item">
+                        <span class="contact-icon">📩</span>
+                        <div>
+                            <strong>Email</strong>
+                            <p><a href="mailto:<%= personal.email %>"><%= personal.email %></a></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Telefon  -->
+                    <% if (personal.phone) { %>
+                        <div class="contact-item">
+                            <span class="contact-icon">📞</span>
+                            <div>
+                                <strong>Telefon</strong>
+                                <p><a href="tel:<%= personal.phone %>"><%= personal.phone %></a></p>
+                            </div>
+                        </div>
+                    <% } %>
+                    
+                    <!-- LinkedIn -->
+                    <% if (personal.social.linkedin) { %>
+                        <div class="contact-item">
+                            <span class="contact-icon">💼</span>
+                            <div>
+                                <strong>LinkedIn</strong>
+                                <p><a href="<%= personal.social.linkedin %>" target="_blank">Profili Görüntüle</a></p>
+                            </div>
+                        </div>
+                    <% } %>
+                    
+                    <!-- GitHub -->
+                    <% if (personal.social.github) { %>
+                        <div class="contact-item">
+                            <span class="contact-icon">💻</span>
+                            <div>
+                                <strong>GitHub</strong>
+                                <p><a href="<%= personal.social.github %>" target="_blank">Projeleri Görüntüle</a></p>
+                            </div>
+                        </div>
+                    <% } %>
+                    
+                    <!-- Konum -->
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <div>
+                            <strong>Konum</strong>
+                            <p><%= personal.location %></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-cta">
+                    <% if (personal.resumeUrl) { %>
+                        <a href="<%=personal.resumeUrl %>" class="btn btn-outline" target="_blank">CV İndir</a>
+                    <% } %>
+                        <a href="mailto:<%= personal.email %>" class="btn btn-primary">Email Gönder</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<%- include('partials/footer') %>
