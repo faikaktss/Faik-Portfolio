@@ -17,28 +17,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', async (req, res) => {
     try {
-        // GitHub API'ye bağlanmayı dene, yoksa varsayılan değerler kullan
-        let userInfo = null;
-        let featureRepos = [];
-        let stats = null;
+        // Basit ve güvenli yaklaşım - GitHub API olmadan da çalışsın
+        const userInfo = {
+            name: personal.fullName,
+            bio: personal.title,
+            avatar_url: personal.profileImage,
+            location: personal.location
+        };
+        const featureRepos = [];
+        const stats = { totalRepos: 0, totalStars: 0, totalForks: 0 };
         
+        // GitHub API'yi dene, hata varsa yukarıdaki varsayılanları kullan
         try {
-            [userInfo, featureRepos, stats] = await Promise.all([
+            const [githubUser, githubRepos, githubStats] = await Promise.all([
                 githubService.getUserInfo(),
                 githubService.getFeatureRepositories(6),
                 githubService.getStats(),
             ]);
+            
+            // API başarılıysa gerçek verileri kullan
+            Object.assign(userInfo, githubUser);
+            featureRepos.push(...githubRepos);
+            Object.assign(stats, githubStats);
         } catch (githubError) {
             console.warn('GitHub API hatası, varsayılan değerler kullanılıyor:', githubError.message);
-            // Varsayılan değerler
-            userInfo = {
-                name: personal.fullName,
-                bio: personal.title,
-                avatar_url: personal.profileImage,
-                location: personal.location
-            };
-            featureRepos = [];
-            stats = { totalRepos: 0, totalStars: 0, totalForks: 0 };
         }
         
         res.render('index', {
