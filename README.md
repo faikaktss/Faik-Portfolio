@@ -4,7 +4,7 @@ Modern ve responsive tasarıma sahip kişisel portfolio websitesi. Node.js/Expre
 
 ## 🚀 Demo
 
-🔗 **Canlı Site:(https://faikaktas.dev)  
+🔗 **Canlı Site:(https://faikaktss.dev)  
 📱 **Mobil Uyumlu:** ✅ Tüm cihazlarda mükemmel görünüm  
 
 ## 📸 Ekran Görüntüleri
