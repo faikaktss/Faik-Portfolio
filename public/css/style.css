@@ -30,6 +30,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 body {
@@ -39,6 +40,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
    
@@ -604,6 +606,9 @@ a:hover {
   
   .container, .hero-container, .nav-container, .footer-container {
     padding: 0 var(--spacing-sm);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .section {
@@ -622,11 +627,19 @@ a:hover {
   .projects-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0 auto;
   }
   
   .project-card {
     padding: 1rem;
     min-height: 320px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0;
   }
   
   .project-header h3 {
@@ -1062,9 +1075,11 @@ html {
 /* Projects Grid */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     margin-bottom: 3rem;
+    width: 100%;
+    max-width: 100%;
 }
 
 .project-card {
@@ -1299,11 +1314,17 @@ html {
     .projects-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
     }
     
     .project-card {
         padding: 1.25rem;
         min-height: 350px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
     
     .project-header {
